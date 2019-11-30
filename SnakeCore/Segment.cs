@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SnakeCore
 {
@@ -12,15 +7,18 @@ namespace SnakeCore
     {
         private int x;
         private int y;
-        private Segment nextSegment;
+        private int oldx;
+        private int oldy;
 
         public int X
         {
             get => x;
             set
             {
+                oldx = x;
                 x = value;
                 NotifyPropertyChanged("X");
+                if(NextSegment != null) NextSegment.X = oldx;
             }
         }
         public int Y
@@ -28,17 +26,13 @@ namespace SnakeCore
             get => y;
             set
             {
+                oldy = y;
                 y = value;
                 NotifyPropertyChanged("Y");
+                if (NextSegment != null) NextSegment.Y = oldy;
             }
         }
-        public Segment NextSegment { 
-            get => nextSegment;
-            set { 
-                nextSegment = value;
-                
-            } 
-        }
+        public Segment NextSegment { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
