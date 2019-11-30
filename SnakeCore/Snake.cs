@@ -21,7 +21,7 @@ namespace SnakeCore
 
         public SnakeList(int size, int startX, int startY, bool IsHor)
         {
-            if (size <= 0) throw new ArgumentOutOfRangeException("Змейка не может быть равно нулю");
+            if (size <= 0) throw new ArgumentOutOfRangeException("Размер змейки не может быть равен нулю");
             Segment head = new Segment() { X = startX, Y = startY };
             Add(head);
             int x = startX;
