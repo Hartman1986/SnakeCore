@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace SnakeCore
 {
-    public class SnakeList : List<Segment>
+    public class SnakeList : ObservableCollection<Segment>
     {
         public new void Add(Segment segment)
         {

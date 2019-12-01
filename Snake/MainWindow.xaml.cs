@@ -22,11 +22,71 @@ namespace Snake
     /// </summary>
     public partial class MainWindow : Window
     {
+        private GameField Game;
         public MainWindow()
         {
             InitializeComponent();
-            GameField Game = new GameField(20, 10);
+            //GameField Game = new GameField(20, 10);
 
+        }
+
+        private void startbtn_Click(object sender, RoutedEventArgs e)
+        {
+            Pause_resumebtn.Visibility = Visibility;
+            Game = new GameField(20, 10);
+            foreach (var item in Game.Snake)
+            {
+                CreateRect(item);
+            }
+            Game.Snake.CollectionChanged += Snake_CollectionChanged;
+
+        }
+
+        private void Snake_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add) {
+                CreateRect(e.NewItems[0] as Segment);
+            }
+        }
+
+        private void CreateRect(Segment segm)
+        {
+            Rectangle rect = new Rectangle();
+            rect.Fill = Brushes.Black;
+            rect.Width = field.ActualWidth / Game.SizeX;
+            rect.Height = field.ActualHeight / Game.SizeY;
+
+            Binding bindX = new Binding();
+            bindX.Converter = new CoordConverter();
+            bindX.ConverterParameter = new int[] { (int)field.ActualWidth / Game.SizeX };
+            bindX.Source = segm;
+            bindX.Path = new PropertyPath("X");
+            rect.SetBinding(Canvas.LeftProperty, bindX);
+
+
+            Binding bindY = new Binding();
+            bindY.Converter = new CoordConverter();
+            bindY.ConverterParameter = new int[] { (int)field.ActualHeight / Game.SizeY };
+            bindY.Source = segm;
+            bindY.Path = new PropertyPath("Y");
+            rect.SetBinding(Canvas.BottomProperty, bindY);
+            
+            field.Children.Add(rect);
+        }
+
+        private void field_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            foreach (var item in field.Children)
+            {
+                if(item is Rectangle)
+                {
+                    Rectangle rect = item as Rectangle;
+                    rect.Width = field.ActualWidth / Game.SizeX;
+                    rect.Height = field.ActualHeight / Game.SizeY;
+                    Canvas.SetLeft(rect, +field.ActualWidth / Game.SizeX);
+                    Canvas.SetBottom(rect, field.ActualHeight / Game.SizeY);
+                }
+            }
         }
     }
 }
