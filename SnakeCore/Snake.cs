@@ -9,13 +9,14 @@ namespace SnakeCore
     {
         public new void Add(Segment segment)
         {
-            if(Count != 0)
+            if(Count == 0)
             {
-                segment.NextSegment = this.Last();
                 base.Add(segment);
+                
             }
             else
             {
+                this.Last().NextSegment = segment;
                 base.Add(segment);
             }
         }

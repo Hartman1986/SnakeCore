@@ -22,6 +22,7 @@ namespace SnakeCore
             SizeX = x;
             SizeY = y;
             GameTurn = new Timer();
+            GameTurn.AutoReset = true;
             Snake = new SnakeList(3, 5, (int)SizeY/2, true);
             CurrentMoveDirection = MoveDirection.Right;
             
@@ -31,13 +32,14 @@ namespace SnakeCore
         {
             if (speed == 0) speed = 1;
             GameTurn.Interval = 1000 / speed;
-            GameTurn.Enabled = true;
             GameTurn.Elapsed += Game_cycle;
+            GameTurn.Enabled = true;
+            
         }
 
         private void Game_cycle(object sender, ElapsedEventArgs e)
         {
-            Segment head = Snake.FirstOrDefault();
+            Segment head = Snake.First();
             head.Move(CurrentMoveDirection);
         }
 

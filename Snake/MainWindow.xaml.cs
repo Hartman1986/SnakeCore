@@ -33,7 +33,7 @@ namespace Snake
         private void startbtn_Click(object sender, RoutedEventArgs e)
         {
             Pause_resumebtn.Visibility = Visibility;
-            Game = new GameField(20, 10);
+            Game = new GameField(40, 20);
             foreach (var item in Game.Snake)
             {
                 CreateRect(item);
@@ -76,17 +76,38 @@ namespace Snake
 
         private void field_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            foreach (var item in field.Children)
+            //foreach (var item in field.Children)
+            //{
+            //    if(item is Rectangle)
+            //    {
+            //        Rectangle rect = item as Rectangle;
+            //        rect.Width = field.ActualWidth / Game.SizeX;
+            //        rect.Height = field.ActualHeight / Game.SizeY;
+            //        Canvas.SetLeft(rect, +field.ActualWidth / Game.SizeX);
+            //        Canvas.SetBottom(rect, field.ActualHeight / Game.SizeY);
+            //    }
+            //}
+        }
+
+        private void Pause_resumebtn_Click(object sender, RoutedEventArgs e)
+        {
+            switch (Pause_resumebtn.Content.ToString())
             {
-                if(item is Rectangle)
-                {
-                    Rectangle rect = item as Rectangle;
-                    rect.Width = field.ActualWidth / Game.SizeX;
-                    rect.Height = field.ActualHeight / Game.SizeY;
-                    Canvas.SetLeft(rect, +field.ActualWidth / Game.SizeX);
-                    Canvas.SetBottom(rect, field.ActualHeight / Game.SizeY);
-                }
+                case "Старт":
+                    startbtn.Visibility = Visibility.Collapsed;
+                    Game.Start(5);
+                    Pause_resumebtn.Content = "Пауза";
+                    break;
+                case "Пауза":
+                    Pause_resumebtn.Content = "Возобновить";
+                    Game.Pause();
+                    break;
+                case "Возобновить":
+                    Pause_resumebtn.Content = "Пауза";
+                    Game.Resume();
+                    break;
             }
+
         }
     }
 }

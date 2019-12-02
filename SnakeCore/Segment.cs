@@ -44,14 +44,18 @@ namespace SnakeCore
             {
                 case MoveDirection.Left:
                     X -= 1;
+                    Y = y;
                     break;
                 case MoveDirection.Right:
                     X += 1;
+                    Y = y;
                     break;
                 case MoveDirection.Up:
+                    X = x;
                     Y += 1;
                     break;
                 case MoveDirection.Down:
+                    X = x;
                     Y -= 1;
                     break;
             }

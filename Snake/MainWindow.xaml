@@ -14,7 +14,7 @@
 
         <StackPanel Margin="5" Grid.Row="0" Orientation="Horizontal">
             <Button Content="Новая игра" Name="startbtn" Height="20" VerticalAlignment="Top" Click="startbtn_Click"/>
-            <Button Content="Пауза" Name="Pause_resumebtn" Visibility="Hidden"/>
+            <Button Content="Старт" Name="Pause_resumebtn" Visibility="Hidden" Click="Pause_resumebtn_Click"/>
             <TextBlock x:Name="txt"/>
         </StackPanel>
         <Canvas Background="Silver" Grid.Row="1" Margin="5" x:Name="field" MinWidth="400" MinHeight="200" SizeChanged="field_SizeChanged"/>
