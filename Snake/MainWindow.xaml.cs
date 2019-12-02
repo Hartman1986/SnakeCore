@@ -33,6 +33,7 @@ namespace Snake
         private void startbtn_Click(object sender, RoutedEventArgs e)
         {
             Pause_resumebtn.Visibility = Visibility;
+            startbtn.Visibility = Visibility.Collapsed;
             Game = new GameField(40, 20);
             foreach (var item in Game.Snake)
             {
@@ -52,6 +53,7 @@ namespace Snake
         private void CreateRect(Segment segm)
         {
             Rectangle rect = new Rectangle();
+            rect.Stroke = Brushes.Gray;
             rect.Fill = Brushes.Black;
             rect.Width = field.ActualWidth / Game.SizeX;
             rect.Height = field.ActualHeight / Game.SizeY;
@@ -94,7 +96,7 @@ namespace Snake
             switch (Pause_resumebtn.Content.ToString())
             {
                 case "Старт":
-                    startbtn.Visibility = Visibility.Collapsed;
+                    
                     Game.Start(5);
                     Pause_resumebtn.Content = "Пауза";
                     break;
