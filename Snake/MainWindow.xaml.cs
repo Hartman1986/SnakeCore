@@ -26,8 +26,6 @@ namespace Snake
         public MainWindow()
         {
             InitializeComponent();
-            //GameField Game = new GameField(20, 10);
-
         }
 
         private void startbtn_Click(object sender, RoutedEventArgs e)
@@ -40,7 +38,6 @@ namespace Snake
                 CreateRect(item);
             }
             Game.Snake.CollectionChanged += Snake_CollectionChanged;
-
         }
 
         private void Snake_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -64,7 +61,6 @@ namespace Snake
             bindX.Source = segm;
             bindX.Path = new PropertyPath("X");
             rect.SetBinding(Canvas.LeftProperty, bindX);
-
 
             Binding bindY = new Binding();
             bindY.Converter = new CoordConverter();
@@ -109,7 +105,37 @@ namespace Snake
                     Game.Resume();
                     break;
             }
+        }
 
+       
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+
+                case Key.Escape:
+                    break;
+                case Key.Space:
+                    Pause_resumebtn_Click(Pause_resumebtn, new RoutedEventArgs());
+                    break;
+                case Key.Left:
+                case Key.A:
+                    Game.SetMoveDirection(MoveDirection.Left);
+                    break;
+                case Key.Up:
+                case Key.W:
+                    Game.SetMoveDirection(MoveDirection.Up);
+                    break;
+                case Key.Right:
+                case Key.D:
+                    Game.SetMoveDirection(MoveDirection.Right);
+                    break;
+                case Key.Down:
+                case Key.S:
+                    Game.SetMoveDirection(MoveDirection.Down);
+                    break;
+            }
         }
     }
 }
