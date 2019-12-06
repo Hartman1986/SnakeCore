@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Snake"
         mc:Ignorable="d"
-        Title="Snake" Height="450" Width="800" KeyDown="Window_KeyDown">
+        Title="Snake" Height="376.027" Width="468.664" KeyDown="Window_KeyDown" Closed="Window_Closed" ResizeMode="NoResize">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,6 +17,6 @@
             <Button Content="Старт" Name="Pause_resumebtn" Visibility="Hidden" Click="Pause_resumebtn_Click"/>
             <TextBlock x:Name="txt"/>
         </StackPanel>
-        <Canvas Background="Silver" Grid.Row="1" Margin="5" x:Name="field" MinWidth="400" MinHeight="200" SizeChanged="field_SizeChanged"/>
+        <Canvas Background="Silver" Grid.Row="1" Margin="5" x:Name="field" MinWidth="450" MinHeight="300" SizeChanged="field_SizeChanged" Width="450" Height="300"/>
     </Grid>
 </Window>

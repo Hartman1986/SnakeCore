@@ -9,8 +9,6 @@ namespace SnakeCore
 {
     public class GameField
     {
-        
-        private Timer GameTurn;
         public MoveDirection CurrentMoveDirection { get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
@@ -21,23 +19,12 @@ namespace SnakeCore
         {
             SizeX = x;
             SizeY = y;
-            GameTurn = new Timer();
-            GameTurn.AutoReset = true;
             Snake = new SnakeList(3, 5, (int)SizeY/2, true);
             CurrentMoveDirection = MoveDirection.Right;
             
         }
-
-        public void Start(int speed)
-        {
-            if (speed == 0) speed = 1;
-            GameTurn.Interval = 1000 / speed;
-            GameTurn.Elapsed += Game_cycle;
-            GameTurn.Enabled = true;
-            
-        }
-
-        private void Game_cycle(object sender, ElapsedEventArgs e)
+        
+        public void GameTick(object state)
         {
             Segment head = Snake.First();
             head.Move(CurrentMoveDirection);
@@ -65,16 +52,6 @@ namespace SnakeCore
                     CurrentMoveDirection = md;
                     break;
             }
-        }
-
-        public void Pause()
-        {
-            GameTurn.Enabled = false;
-        }
-
-        public void Resume()
-        {
-            GameTurn.Enabled = true;
         }
     }
 }

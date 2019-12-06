@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -12,7 +11,6 @@ namespace SnakeCore
             if(Count == 0)
             {
                 base.Add(segment);
-                
             }
             else
             {
@@ -36,7 +34,8 @@ namespace SnakeCore
                     Add(segment);
                     x--;
                 }
-            }else if(size > 1)
+            }
+            else if(size > 1)
             {
                 for (int i = 0; i < size - 1; i++)
                 {
@@ -45,8 +44,6 @@ namespace SnakeCore
                     y--;
                 }
             }
-
-            
         }
     }
 }

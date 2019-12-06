@@ -17,7 +17,7 @@ namespace SnakeCore
             {
                 oldx = x;
                 x = value;
-                NotifyPropertyChanged("X");
+                NotifyPropertyChanged(nameof(X));
                 if(NextSegment != null) NextSegment.X = oldx;
             }
         }
@@ -28,7 +28,7 @@ namespace SnakeCore
             {
                 oldy = y;
                 y = value;
-                NotifyPropertyChanged("Y");
+                NotifyPropertyChanged(nameof(Y));
                 if (NextSegment != null) NextSegment.Y = oldy;
             }
         }

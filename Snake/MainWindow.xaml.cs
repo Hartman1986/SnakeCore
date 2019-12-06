@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace Snake
     public partial class MainWindow : Window
     {
         private GameField Game;
+        private Timer gameTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +34,7 @@ namespace Snake
         {
             Pause_resumebtn.Visibility = Visibility;
             startbtn.Visibility = Visibility.Collapsed;
-            Game = new GameField(40, 20);
+            Game = new GameField(45, 30);
             foreach (var item in Game.Snake)
             {
                 CreateRect(item);
@@ -74,17 +76,7 @@ namespace Snake
 
         private void field_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //foreach (var item in field.Children)
-            //{
-            //    if(item is Rectangle)
-            //    {
-            //        Rectangle rect = item as Rectangle;
-            //        rect.Width = field.ActualWidth / Game.SizeX;
-            //        rect.Height = field.ActualHeight / Game.SizeY;
-            //        Canvas.SetLeft(rect, +field.ActualWidth / Game.SizeX);
-            //        Canvas.SetBottom(rect, field.ActualHeight / Game.SizeY);
-            //    }
-            //}
+            
         }
 
         private void Pause_resumebtn_Click(object sender, RoutedEventArgs e)
@@ -92,17 +84,17 @@ namespace Snake
             switch (Pause_resumebtn.Content.ToString())
             {
                 case "Старт":
-                    
-                    Game.Start(5);
+                    gameTimer = new Timer(Game.GameTick, null,0, 200);
                     Pause_resumebtn.Content = "Пауза";
                     break;
                 case "Пауза":
+                    gameTimer.Dispose();
                     Pause_resumebtn.Content = "Возобновить";
-                    Game.Pause();
+                    
                     break;
                 case "Возобновить":
                     Pause_resumebtn.Content = "Пауза";
-                    Game.Resume();
+                    gameTimer = new Timer(Game.GameTick, null, 0, 200);
                     break;
             }
         }
@@ -113,7 +105,6 @@ namespace Snake
         {
             switch (e.Key)
             {
-
                 case Key.Escape:
                     break;
                 case Key.Space:
@@ -136,6 +127,11 @@ namespace Snake
                     Game.SetMoveDirection(MoveDirection.Down);
                     break;
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if(gameTimer != null) gameTimer.Dispose();
         }
     }
 }
