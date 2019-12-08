@@ -40,6 +40,18 @@ namespace Snake
                 CreateRect(item);
             }
             Game.Snake.CollectionChanged += Snake_CollectionChanged;
+            Game.GameOver += GameOver;
+        }
+
+        private void GameOver()
+        {
+            if (gameTimer != null) gameTimer.Dispose();
+            Pause_resumebtn.Content = "Пауза";
+            Pause_resumebtn.Visibility = Visibility.Collapsed;
+            startbtn.Visibility = Visibility.Visible;
+
+
+
         }
 
         private void Snake_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -88,7 +100,7 @@ namespace Snake
                     Pause_resumebtn.Content = "Пауза";
                     break;
                 case "Пауза":
-                    gameTimer.Dispose();
+                    if (gameTimer != null) gameTimer.Dispose();
                     Pause_resumebtn.Content = "Возобновить";
                     
                     break;
@@ -96,6 +108,7 @@ namespace Snake
                     Pause_resumebtn.Content = "Пауза";
                     gameTimer = new Timer(Game.GameTick, null, 0, 200);
                     break;
+                
             }
         }
 

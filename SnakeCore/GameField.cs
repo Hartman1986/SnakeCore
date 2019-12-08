@@ -13,6 +13,8 @@ namespace SnakeCore
         public int SizeX { get; set; }
         public int SizeY { get; set; }
         public SnakeList Snake { get; set; }
+        public event Action GameOver;
+        private bool isGameOver = false;
 
 
         public GameField(int x, int y)
@@ -26,13 +28,22 @@ namespace SnakeCore
         
         public void GameTick(object state)
         {
+            if (isGameOver) return;
             Segment head = Snake.First();
             head.Move(CurrentMoveDirection);
+
+            if (head.X < 0 || head.Y < 0 || head.X > SizeX - 1 || head.Y > SizeY - 1)
+            {
+                GameOver?.Invoke();
+                isGameOver = true;
+
+            }
         }
 
         public void SetMoveDirection(MoveDirection md)
         {
             if (md == CurrentMoveDirection) return;
+
             switch (md)
             {
                 case MoveDirection.Left:
